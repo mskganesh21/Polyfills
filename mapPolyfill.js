@@ -31,3 +31,28 @@ if(!Array.prototype.myMap){
 }
 
 console.log([1,2,3].myMap(x => x*2));
+
+
+/*map polyfill with optional this arg*/
+if (!Array.prototype.myMap) {
+  Array.prototype.myMap = function(callback, thisArg) {
+    // Validate callback
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+    
+    const result = [];
+    
+    // Iterate with proper this context
+    for (let i = 0; i < this.length; i++) {
+      // Use .call() to set 'this' context for callback
+      if (this.hasOwnProperty(i)) {  // Handle sparse arrays
+        result[i] = callback.call(thisArg, this[i], i, this);
+      }
+    }
+    
+    return result;
+  };
+}
+
+console.log([1,2,3].myMap(x => x*2));
