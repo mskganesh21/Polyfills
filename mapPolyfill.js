@@ -11,7 +11,7 @@ the
 //so we're checking the array prototype
 //has the myMap function if not we'll add it 
 if(!Array.prototype.myMap){
-  //takes a callback function and executes the cb for each element of the array 
+  //takes a callback function and an optional this arguement and executes the cb for each element of the array 
   Array.prototype.myMap = function(cb){
     //validate callback
     if(typeof cb !== 'function'){
@@ -21,8 +21,7 @@ if(!Array.prototype.myMap){
     //return a new array 
     const result = [];
     
-    //this callback takes 3 arguements the current element, the index and the array itself also an optional 
-    //this arguement 
+    //this callback takes 3 arguements the current element, the index and the array itself 
     for(let i=0;i<this.length;i++){
       result.push(cb(this[i],i,this));
     }
